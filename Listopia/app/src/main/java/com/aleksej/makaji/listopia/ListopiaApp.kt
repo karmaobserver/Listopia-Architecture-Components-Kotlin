@@ -3,6 +3,7 @@ package com.aleksej.makaji.listopia
 import android.app.Activity
 import android.app.Application
 import android.app.Service
+import com.aleksej.makaji.listopia.di.AppInjector
 import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -26,10 +27,11 @@ class ListopiaApp : Application(), HasActivityInjector, HasServiceInjector {
 
     override fun onCreate() {
         super.onCreate()
-        //AppInjector.init(this)
+        AppInjector.init(this)
         if (BuildConfig.DEBUG) {
             //Timber configuration
             Timber.plant(Timber.DebugTree())
+            //Stetho configuration
             Stetho.initializeWithDefaults(this)
         }
     }
