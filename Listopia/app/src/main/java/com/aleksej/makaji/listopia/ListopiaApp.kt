@@ -34,6 +34,7 @@ class ListopiaApp : Application(), HasActivityInjector, HasServiceInjector {
             //Stetho configuration
             Stetho.initializeWithDefaults(this)
         }
+
     }
 
     override fun activityInjector() = dispatchingAndroidInjector
