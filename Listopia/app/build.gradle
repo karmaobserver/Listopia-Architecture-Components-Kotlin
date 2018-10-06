@@ -1,0 +1,143 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+//Kotlin android processor is required for processing the kotlin annotations.
+apply plugin: 'kotlin-kapt'
+
+//For args
+apply plugin: 'androidx.navigation.safeargs'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    defaultConfig {
+        applicationId "com.aleksej.makaji.listopia"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String', 'DATABASE_NAME', '"listopia.db"'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //Databinding
+    dataBinding {
+        enabled = true
+    }
+
+    //For kotlin coroutines
+    androidExtensions {
+        experimental = true
+    }
+
+    /*compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }*/
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Support libs
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+    implementation deps.support.design
+    implementation deps.constraint_layout
+
+    //Kotlin libs
+    implementation deps.kotlin.stdlib_jdk
+
+    //Dagger2 - Dependency Injection framework
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+
+    //Logging utility
+    implementation deps.timber
+
+    //LifeCycle AC (LifeCycle, ViewModel, LiveData)
+    //implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    //implementation deps.lifecycle.java8
+    kapt deps.lifecycle.compiler
+
+    /*implementation "android.arch.core:runtime:1.1.1"
+    implementation "android.arch.core:common:1.1.1"*/
+
+    //Room Database AC
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+
+    //Navigation AC
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
+
+    //Networking
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+
+    //Glide - Imaging loading util
+    implementation deps.glide.runtime
+    kapt deps.glide.compiler
+
+    //Coroutines
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
+    implementation deps.coroutines.adapter
+
+    //Paging AC
+    implementation deps.paging
+
+    //Helps to see database of device and sharedpreference data
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
+
+    //Facebook Stetho
+    implementation deps.stetho.stetho
+    implementation deps.stetho.okhttp3
+
+    //FireStore Cloud base
+    implementation deps.firebase.core
+    implementation deps.firebase.fire_store
+
+    //FireStore kotlin extensions for LiveData
+    //implementation 'com.github.brotoo25:firestore-livedata:0.0.2'
+
+    //TESTING LIBRARY
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+//Google services plugin to load the google-services.json file
+apply plugin: 'com.google.gms.google-services'
+
+/*kapt {
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+}*/
