@@ -1,6 +1,7 @@
 package com.aleksej.makaji.listopia.screen.shoppinglist
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,9 @@ import com.aleksej.makaji.listopia.data.event.ErrorEvent
 import com.aleksej.makaji.listopia.data.event.LoadingEvent
 import com.aleksej.makaji.listopia.data.event.SuccessEvent
 import com.aleksej.makaji.listopia.data.repository.model.ShoppingListModel
+import com.aleksej.makaji.listopia.databinding.FragmentShoppingListBinding
+import com.aleksej.makaji.listopia.util.autoCleared
+import kotlinx.android.synthetic.main.fragment_shopping_list.*
 import timber.log.Timber
 
 /**
@@ -24,8 +28,12 @@ class ShoppingListFragment: BaseFragment() {
 
     private var mObserversInitialized = false
 
+    private var binding by autoCleared<FragmentShoppingListBinding>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_shopping_list, container, false)
+        val dataBinding = FragmentShoppingListBinding.inflate(inflater, container, false)
+        binding = dataBinding
+        return dataBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -42,9 +50,15 @@ class ShoppingListFragment: BaseFragment() {
         mShoppingListViewModel.shoppingListsEvent.observe(this, Observer {
             when (it) {
                 is SuccessEvent<PagedList<ShoppingListModel>> -> {
+                    binding.textViewTest.text = it.data?.get(0).toString()
                     showToast("SIZEEEEEE: " + it.data?.size)
+                    Handler().postDelayed({
+                        binding.loadingDotsShoppingList.visibility = View.INVISIBLE
+                    }, 1000)
+
                 }
                 is LoadingEvent -> {
+                    binding.loadingDotsShoppingList.visibility = View.VISIBLE
                 }
                 is ErrorEvent<PagedList<ShoppingListModel>> -> {
                     showToast("ERROR load + " + it.error)

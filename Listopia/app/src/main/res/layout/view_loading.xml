@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.aleksej.makaji.listopia.widget.ViewLoadingDotsGrow xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/DotsGrowStyle">
+
+    </com.aleksej.makaji.listopia.widget.ViewLoadingDotsGrow>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
