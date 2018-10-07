@@ -2,9 +2,8 @@ package com.aleksej.makaji.listopia.screen.shoppinglist
 
 import android.os.Bundle
 import android.os.Handler
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
@@ -30,6 +29,11 @@ class ShoppingListFragment: BaseFragment() {
 
     private var binding by autoCleared<FragmentShoppingListBinding>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val dataBinding = FragmentShoppingListBinding.inflate(inflater, container, false)
         binding = dataBinding
@@ -44,6 +48,17 @@ class ShoppingListFragment: BaseFragment() {
             observe()
             mObserversInitialized = true
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.title_shopping_list)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu?.clear()
+        inflater?.inflate(R.menu.menu_fragment_shopping_list, menu)
     }
 
     private fun observe() {

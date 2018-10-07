@@ -117,9 +117,13 @@ dependencies {
     //FireStore Cloud base
     implementation deps.firebase.core
     implementation deps.firebase.fire_store
+    implementation deps.firebase.auth_ui
 
     //FireStore kotlin extensions for LiveData
     //implementation 'com.github.brotoo25:firestore-livedata:0.0.2'
+
+    // circle image view
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
 
     //TESTING LIBRARY
     testImplementation 'junit:junit:4.12'

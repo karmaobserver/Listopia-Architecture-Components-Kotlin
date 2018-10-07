@@ -1,6 +1,7 @@
 package com.aleksej.makaji.listopia.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -18,6 +19,14 @@ open class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, Lifec
     // Todo redundant?
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showToast(resourceId: Int) {
+        showToast(getString(resourceId))
     }
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
